@@ -1,7 +1,6 @@
 import os
 import csv
 
-
 election_data_path=os.path.join("Resources","election_data.csv")
 
 with open(election_data_path) as fileobj:
@@ -26,13 +25,14 @@ with open(election_data_path) as fileobj:
         if bool == False:
             candidates.append(current_vote)
         else: bool=False
-        
-    print(rowcount)
-    print(candidates)
+    print("Election Results")
+    print("--------------------------")        
+    print(f'Total Votes: {rowcount}')
+    print("--------------------------")
 
     fileobj.seek(0)
    
-    tally=[]
+    tally=list()
     for y in range(0,len(candidates)):
         tally.append(0)
 
@@ -44,9 +44,14 @@ with open(election_data_path) as fileobj:
                 tally_x=candidates.index(person)
                 tally[int(tally_x)]=tally[int(tally_x)]+1
                 break
-            
-print(candidates)
-print(tally)
+for z in range(0,len(candidates)):
+    p=tally[int(z)]/rowcount
+    print(f'{candidates[int(z)]}: {p:.2%} ({tally[int(z)]})')
+
+print("--------------------------")
+winner=candidates[tally.index(int(max(tally)))]
+print(f'Winner: {winner}')
+print("--------------------------")
 
 #list, then while loop, then for loop, ea loop, 
 #use for letter in word idea, if index0 matches, the 
