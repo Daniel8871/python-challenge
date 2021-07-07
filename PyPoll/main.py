@@ -33,6 +33,7 @@ with open(election_data_path) as fileobj:
     fileobj.seek(0)
    
     tally=list()
+    p_list=list()
     for y in range(0,len(candidates)):
         tally.append(0)
 
@@ -46,14 +47,20 @@ with open(election_data_path) as fileobj:
                 break
 for z in range(0,len(candidates)):
     p=tally[int(z)]/rowcount
+    p_list.append(p)
     print(f'{candidates[int(z)]}: {p:.2%} ({tally[int(z)]})')
+    
 
 print("--------------------------")
 winner=candidates[tally.index(int(max(tally)))]
 print(f'Winner: {winner}')
 print("--------------------------")
 
-#list, then while loop, then for loop, ea loop, 
-#use for letter in word idea, if index0 matches, the 
-#turn off while loop (maybe swap whileand for loop?)
-#possible to 
+output_path=os.path.join('analysis','PyPoll.csv')
+with open(output_path,'w') as fileobj_w:
+    election_writer=csv.writer(fileobj_w,delimiter=',')
+    csv.writerow("Election Results")
+    csv.writerow("Total Votes:",rowcount)
+    for zz in range(0,len(candidates)):
+        csv.writerow("Candidates:",candidates[int(zz)],p_list[int(zz)],tally[int(zz)])
+    csv.writerow("Winner:",winner)
