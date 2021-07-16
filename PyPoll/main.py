@@ -55,12 +55,20 @@ with open(election_data_path) as fileobj:
                 tally[int(tally_x)]=tally[int(tally_x)]+1
                 break
 
-# From the vote tally, calculating it's percentage of the total (and saving to list).
+## From the vote tally, calculating it's percentage of the total (and saving to list).
+# for z in range(0,len(candidates)):
+#     p=tally[int(z)]/rowcount
+#     p_list.append(p)
+#     print(f'{candidates[int(z)]}: {p:.2%} ({tally[int(z)]})')
+
 for z in range(0,len(candidates)):
     p=tally[int(z)]/rowcount
     p_list.append(p)
-    print(f'{candidates[int(z)]}: {p:.2%} ({tally[int(z)]})')
-    
+    #print(f'{candidates[int(z)]}: {p:.2%} ({tally[int(z)]})')
+results=zip(candidates,p_list,tally)
+for result in results:
+    print(f'{result} with zip')
+
 # Printing results to terminal.
 print("--------------------------")
 winner=candidates[tally.index(int(max(tally)))]
